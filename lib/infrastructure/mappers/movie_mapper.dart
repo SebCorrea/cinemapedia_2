@@ -15,7 +15,7 @@ class MovieMapper {
         popularity: movieFromMovieDb.popularity,
         posterPath: movieFromMovieDb.posterPath != ''
             ? 'https://image.tmdb.org/t/p/w500${movieFromMovieDb.posterPath}'
-            : 'https://linnea.com.ar/wp-content/uploads/2018/09/404PosterNotFound.jpg',
+            : 'no-poster',
         releaseDate: movieFromMovieDb.releaseDate,
         title: movieFromMovieDb.title,
         video: movieFromMovieDb.video,
