@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/config/helpers/number_formatters.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/movie.dart';
 
@@ -106,75 +107,78 @@ class _Slide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /*Image*/
-          SizedBox(
-            width: 150,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                movie.posterPath,
-                fit: BoxFit.cover,
-                width: 150,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) {
-                    return const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
+    return GestureDetector(
+      onTap: () => context.push('/movie/${movie.id}'),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /*Image*/
+            SizedBox(
+              width: 150,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movie.posterPath,
+                  fit: BoxFit.cover,
+                  width: 150,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress != null) {
+                      return const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                  return FadeIn(child: child);
-                },
+                      );
+                    }
+                    return FadeIn(child: child);
+                  },
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
+            const SizedBox(
+              height: 5,
+            ),
 
-          /*Title*/
-          SizedBox(
-            width: 150,
-            child: Text(
-              movie.title,
-              maxLines: 2,
-              style: textStyle.titleSmall,
-              overflow: TextOverflow.ellipsis,
+            /*Title*/
+            SizedBox(
+              width: 150,
+              child: Text(
+                movie.title,
+                maxLines: 2,
+                style: textStyle.titleSmall,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-          /*Rating*/
-          SizedBox(
-            width: 150,
-            child: Row(
-              children: [
-                Icon(
-                  Icons.star_half_outlined,
-                  color: Colors.yellow.shade800,
-                ),
-                const SizedBox(width: 3),
-                Text(
-                  movie.voteAverage.toStringAsFixed(1),
-                  style: textStyle.bodyMedium
-                      ?.copyWith(color: Colors.yellow.shade800),
-                ),
-                const SizedBox(width: 10),
-                const Spacer(),
-                Text(
-                  NumberFormatters.toDoubleWithUnits(movie.popularity),
-                  style: textStyle.bodyMedium,
-                ),
-              ],
-            ),
-          )
-        ],
+            /*Rating*/
+            SizedBox(
+              width: 150,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.star_half_outlined,
+                    color: Colors.yellow.shade800,
+                  ),
+                  const SizedBox(width: 3),
+                  Text(
+                    movie.voteAverage.toStringAsFixed(1),
+                    style: textStyle.bodyMedium
+                        ?.copyWith(color: Colors.yellow.shade800),
+                  ),
+                  const SizedBox(width: 10),
+                  const Spacer(),
+                  Text(
+                    NumberFormatters.toDoubleWithUnits(movie.popularity),
+                    style: textStyle.bodyMedium,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

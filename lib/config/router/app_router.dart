@@ -7,5 +7,13 @@ final appRouter = GoRouter(initialLocation: '/', routes: [
     path: '/',
     name: HomeScreen.name,
     builder: (context, state) => const HomeScreen(),
-  )
+    routes: [
+      GoRoute(
+        path: 'movie/:id',
+        name: MovieScreen.name,
+        builder: (context, state) =>
+            MovieScreen(id: state.pathParameters['id'] ?? 'no-id'),
+      )
+    ],
+  ),
 ]);
