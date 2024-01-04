@@ -1,6 +1,5 @@
 import 'package:cinemapedia/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../widgets/views/views.dart';
 
