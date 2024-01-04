@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({super.key});
+  final int pageIndex;
+  const CustomBottomNavigationBar({super.key, required this.pageIndex});
 
+  final Map<int, String> routes = const {0: '/'};
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(elevation: 0, items: const [

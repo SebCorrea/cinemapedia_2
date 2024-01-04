@@ -2,17 +2,18 @@ import 'package:go_router/go_router.dart';
 
 import '../../ui/screens/screens.dart';
 
-final appRouter = GoRouter(initialLocation: '/', routes: [
+final appRouter = GoRouter(initialLocation: '/home/0', routes: [
   GoRoute(
-    path: '/',
+    path: '/home/:page',
     name: HomeScreen.name,
-    builder: (context, state) => const HomeScreen(),
+    builder: (context, state) => HomeScreen(
+      pageIndex: int.parse(state.pathParameters['page'] ?? '0'),
+    ),
     routes: [
       GoRoute(
         path: 'movie/:id',
         name: MovieScreen.name,
-        builder: (context, state) =>
-            MovieScreen(id: state.pathParameters['id'] ?? 'no-id'),
+        builder: (context, state) => MovieScreen(id: state.pathParameters['id'] ?? 'no-id'),
       )
     ],
   ),
