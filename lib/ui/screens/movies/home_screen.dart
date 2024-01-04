@@ -7,7 +7,8 @@ class HomeScreen extends StatelessWidget {
   static const name = 'home-screen';
   final int pageIndex;
 
-  final views = const <Widget>[HomeView(), Placeholder(), FavoritesView()];
+  final List<Widget> views = const [HomeView(), Placeholder(), FavoritesView()];
+
   const HomeScreen({super.key, required this.pageIndex});
 
   @override
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         pageIndex: pageIndex,
+        numberOfViews: views.length,
       ),
     );
   }
