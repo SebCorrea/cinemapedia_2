@@ -25,7 +25,7 @@ class MovieDbDatasource extends MoviesDatasource {
         'page': page,
       },
     );
-    return jsonToMovie(response.data);
+    return _jsonToMovie(response.data);
   }
 
   @override
@@ -36,7 +36,7 @@ class MovieDbDatasource extends MoviesDatasource {
         'page': page,
       },
     );
-    return jsonToMovie(response.data);
+    return _jsonToMovie(response.data);
   }
 
   @override
@@ -47,7 +47,7 @@ class MovieDbDatasource extends MoviesDatasource {
         'page': page,
       },
     );
-    return jsonToMovie(response.data);
+    return _jsonToMovie(response.data);
   }
 
   @override
@@ -58,7 +58,7 @@ class MovieDbDatasource extends MoviesDatasource {
         'page': page,
       },
     );
-    return jsonToMovie(response.data);
+    return _jsonToMovie(response.data);
   }
 
   @override
@@ -69,7 +69,16 @@ class MovieDbDatasource extends MoviesDatasource {
     return MovieMapper.movieDetailsToEntity(movieDetails);
   }
 
-  List<Movie> jsonToMovie(Map<String, dynamic> json) {
+  @override
+  Future<List<Movie>> searchMovie({required String query}) async {
+    final response = await dio.get(
+      '/search/movie',
+      queryParameters: {'query': query},
+    );
+    return _jsonToMovie(response.data);
+  }
+
+  List<Movie> _jsonToMovie(Map<String, dynamic> json) {
     final movieDbResponse = MovieDbResponse.fromJson(json);
     return movieDbResponse.results
         .where((movieDb) => movieDb.posterPath != 'no-poster')
