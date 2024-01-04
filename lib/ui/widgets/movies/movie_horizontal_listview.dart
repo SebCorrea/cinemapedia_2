@@ -11,16 +11,10 @@ class MovieHorizontalListview extends StatefulWidget {
   final String? subtitle;
   final VoidCallback? loadNextPage;
 
-  const MovieHorizontalListview(
-      {super.key,
-      required this.movies,
-      this.title,
-      this.subtitle,
-      this.loadNextPage});
+  const MovieHorizontalListview({super.key, required this.movies, this.title, this.subtitle, this.loadNextPage});
 
   @override
-  State<MovieHorizontalListview> createState() =>
-      _MovieHorizontalListviewState();
+  State<MovieHorizontalListview> createState() => _MovieHorizontalListviewState();
 }
 
 class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
@@ -31,8 +25,7 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
     super.initState();
     scrollController.addListener(() {
       if (widget.loadNextPage == null) return;
-      if (scrollController.position.pixels + 200 >=
-          scrollController.position.maxScrollExtent) {
+      if (scrollController.position.pixels + 200 >= scrollController.position.maxScrollExtent) {
         widget.loadNextPage!();
       }
     });
@@ -50,8 +43,7 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
       height: 350,
       child: Column(
         children: [
-          if (widget.title != null || widget.subtitle != null)
-            _Header(widget.title, widget.subtitle),
+          if (widget.title != null || widget.subtitle != null) _Header(widget.title, widget.subtitle),
           Expanded(
             child: ListView.builder(
               controller: scrollController,
@@ -88,8 +80,7 @@ class _Header extends StatelessWidget {
             const Spacer(),
             if (subtitle != null)
               FilledButton.tonal(
-                  style:
-                      const ButtonStyle(visualDensity: VisualDensity.compact),
+                  style: const ButtonStyle(visualDensity: VisualDensity.compact),
                   onPressed: () {},
                   child: Text(subtitle!)),
           ],
@@ -108,7 +99,7 @@ class _Slide extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     return GestureDetector(
-      onTap: () => context.push('/movie/${movie.id}'),
+      onTap: () => context.push('/home/0/movie/${movie.id}'),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
@@ -165,8 +156,7 @@ class _Slide extends StatelessWidget {
                   const SizedBox(width: 3),
                   Text(
                     movie.voteAverage.toStringAsFixed(1),
-                    style: textStyle.bodyMedium
-                        ?.copyWith(color: Colors.yellow.shade800),
+                    style: textStyle.bodyMedium?.copyWith(color: Colors.yellow.shade800),
                   ),
                   const SizedBox(width: 10),
                   const Spacer(),
