@@ -5,3 +5,5 @@ export 'movies/first_loading_provider.dart';
 export 'actors/actors_providers.dart';
 export 'movies/movie_details_provider.dart';
 export 'actors/actors_repository_provider.dart';
+export 'storage/local_storage_repository_provider.dart';
+export 'storage/favorites_movies_provider.dart';

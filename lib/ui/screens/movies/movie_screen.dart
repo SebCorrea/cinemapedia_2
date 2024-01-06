@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cinemapedia/ui/providers/storage/favorites_movies_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -181,13 +182,13 @@ class _ActorsByMovie extends ConsumerWidget {
   }
 }
 
-class _CustomSliverAppbar extends StatelessWidget {
+class _CustomSliverAppbar extends ConsumerWidget {
   final Movie movie;
 
   const _CustomSliverAppbar({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
@@ -196,11 +197,17 @@ class _CustomSliverAppbar extends StatelessWidget {
       foregroundColor: colorScheme.onBackground,
       actions: [
         IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite,
-              color: Colors.red,
-            ))
+          onPressed: () async {
+            await ref.read(favoriteMoviesProvider.notifier).toggleFavorite(movie);
+            ref.invalidate(isFavoriteMovieProvider(movie.id));
+          },
+          icon: ref.watch(isFavoriteMovieProvider(movie.id)).when(
+                data: (isFavorite) =>
+                    isFavorite ? const Icon(Icons.favorite, color: Colors.red) : const Icon(Icons.favorite_border),
+                error: (_, __) => throw UnimplementedError(),
+                loading: () => const Icon(Icons.favorite_border),
+              ),
+        )
       ],
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(horizontal: 15),
